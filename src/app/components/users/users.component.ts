@@ -1,103 +1,78 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/User';
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+	selector: 'app-users',
+	templateUrl: './users.component.html',
+	styleUrls: [ './users.component.css' ]
 })
 export class UsersComponent implements OnInit {
-  users: User[];
-  showExtended: boolean = false;
-  loaded: boolean = false;
-  enableAdd: boolean =  true;
-  currentClasses = {};
-  currentStyles = {};
+	user: User = {
+		firstName: '',
+		lastName: '',
+		email: ''
+  };
+  
+	users: User[];
+	loaded: boolean = false;
+	enableAdd: boolean = false;
+	currentClasses = {};
+	currentStyles = {};
+	isActive: boolean;
+	hide: boolean;
 
-  constructor() { }
+	constructor() {}
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.users = [
-        {
-         firstName: "big",
-         lastName: "man",
-         age: 30,
-         address: {
-             street:"bigman torg 25",
-             postCode:13240,
-             city: ""
-             },
-             registered: new Date('01/02/2018 08:30:00')
-         },
-         {
-           firstName: "john",
-           lastName: "doe",
-           age: 35,
-           address: {
-               street:"johns street",
-               postCode:20343,
-               city: "los angeles"
-               },
-               registered: new Date('04/04/2018 12:30:00')
-         },
- 
-           {
-             firstName: "alex",
-             lastName: "grace",
-             age: 26,
-             address: {
-                 street:"björknäs torg 25",
-                 postCode:13240,
-                 city: "Stockholm"
-                 },
-                 registered: new Date('09/10/2013 15:30:00')
-           }
-       ];
-       this.loaded = true;
-       this.enableAdd = true;
+	ngOnInit() {
+		this.users = [
+			{
+				firstName: 'big',
+				lastName: 'man',
+        email: 'bigman@mail.com',
+        hide:true
+			},
+			{
+				firstName: 'john',
+				lastName: 'doe',
+				email: 'john@doe.com',
+				registered: new Date('04/04/2018 12:30:00'),
+				hide: true
+			},
 
+			{
+				firstName: 'alex',
+				lastName: 'grace',
+				email: 'alex@gmail.com',
+				registered: new Date('09/10/2013 15:30:00'),
+				hide: true
+			}
+		];
+		this.loaded = true;
+		this.enableAdd = true;
 
-       
-    },2000);
+		this.setCurrentClasses();
+	}
 
-      
+	addUser() {
+		this.user.hide = true;
+		this.user.registered = new Date();
+		this.users.unshift(this.user);
+	}
 
+	toggleHide(user: User) {
+		user.hide = !user.hide;
+	}
 
-      
+	onSubmit(e) {
+		e.preventDefault();
+	}
 
-      // this.addUser({
-      //   firstName: "david",
-      //   lastName: "grace",
-      //   age: 26,
-      //   address: {
-      //       street:"elm street",
-      //       postCode:12323,
-      //       city: "new york"
-      //   }
-      // });
+	fireEvent(e) {
+		console.log(e.target.value);
+	}
 
-      this.setCurrentClasses();
-    }
-
-    addUser(user: User) {
-
-      this.users.push(user);
-    }
-
-    fireEvent(e) {
-      console.log(e);
-    }
-
-    setCurrentClasses() {
-      this.currentClasses = {
-        'btn-success': this.enableAdd
-      }
-    }
-
-    setCurrentStyles() {
-      this.currentStyles = {
-        'padding-top': this.showExtended ? '0' : '40px'
-      }
-    }
-
+	setCurrentClasses() {
+		this.currentClasses = {
+			'btn-success': this.enableAdd
+		};
+	}
 }

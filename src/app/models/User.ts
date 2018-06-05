@@ -1,12 +1,8 @@
 export interface User {
-    firstName:string,
-    lastName:string,
-    age?:number,
-        address?: {
-            street?:string, 
-            postCode?:number,
-            city?:string
-        },
-        balance?:string,
-        registered?: any
-}   
+	firstName: string;
+    lastName: string;
+    email: string;
+    isActive?: boolean;
+	registered?: any;
+	hide?: boolean;
+}
