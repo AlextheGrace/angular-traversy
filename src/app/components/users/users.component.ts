@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
 @Component({
 	selector: 'app-users',
@@ -10,8 +11,8 @@ export class UsersComponent implements OnInit {
 		firstName: '',
 		lastName: '',
 		email: ''
-  };
-  
+	};
+
 	users: User[];
 	loaded: boolean = false;
 	enableAdd: boolean = false;
@@ -19,37 +20,27 @@ export class UsersComponent implements OnInit {
 	currentStyles = {};
 	isActive: boolean;
 	hide: boolean;
+	showUserForm: boolean = true;
+	form: any;
+	data: any;
 
-	constructor() {}
+	constructor(private _userService: UserService) {}
 
 	ngOnInit() {
-		this.users = [
-			{
-				firstName: 'big',
-				lastName: 'man',
-        email: 'bigman@mail.com',
-        hide:true
-			},
-			{
-				firstName: 'john',
-				lastName: 'doe',
-				email: 'john@doe.com',
-				registered: new Date('04/04/2018 12:30:00'),
-				hide: true
-			},
+		//get users from service
+		this._userService.getUsers().subscribe((users) => {
+			this.users = users;
+			this.loaded = true;
+		});
 
-			{
-				firstName: 'alex',
-				lastName: 'grace',
-				email: 'alex@gmail.com',
-				registered: new Date('09/10/2013 15:30:00'),
-				hide: true
-			}
-		];
 		this.loaded = true;
 		this.enableAdd = true;
 
 		this.setCurrentClasses();
+
+		this._userService.getData().subscribe((data) => {
+			console.log(data);
+		});
 	}
 
 	addUser() {
@@ -62,13 +53,18 @@ export class UsersComponent implements OnInit {
 		user.hide = !user.hide;
 	}
 
-	onSubmit(e) {
-		e.preventDefault();
+	onSubmit({ value }: { value: User }) {
+		value.isActive = true;
+		value.registered = new Date();
+		value.hide = true;
+		this._userService.addUser(value);
+
+		this.form.reset();
 	}
 
-	fireEvent(e) {
-		console.log(e.target.value);
-	}
+	// fireEvent(e) {
+	// 	console.log(e.target.value);
+	// }
 
 	setCurrentClasses() {
 		this.currentClasses = {

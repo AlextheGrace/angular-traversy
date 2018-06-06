@@ -12,16 +12,7 @@ export class UserComponent {
     user:User;
 
     constructor() {
-        this.user = {
-            firstName: "alex",
-            lastName: "grace",
-            age: 26,
-            address: {
-                street:"björknäs torg 25",
-                postCode:13240,
-                city: "Stockholm"
-            }
-        }
+
 
     }
 }

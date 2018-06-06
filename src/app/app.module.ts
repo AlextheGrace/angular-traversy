@@ -7,6 +7,7 @@ import { UserComponent } from './components/user/user.component';
 import { UsersComponent } from './components/users/users.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/Forms';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { FormsModule } from '@angular/Forms';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
