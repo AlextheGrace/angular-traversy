@@ -8,13 +8,15 @@ import { UsersComponent } from './components/users/users.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/Forms';
 import { UserService } from './services/user.service';
+import { PostsComponent } from './components/posts/posts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     UsersComponent,
-    NavbarComponent
+    NavbarComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,
